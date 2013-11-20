@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC
+    "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN"
+    "http://java.sun.com/dtd/jdo_2_0.dtd">
+<jdo>
+    <package name="hr.apis_it.fin._2012.types.f73">
+        <class
+              name="RacunType">
+            <field
+                  name="oib"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="uSustPdv"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="datVrijeme"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="oznSlijed"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="brRac"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="pdv"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="pnp"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="ostaliPor"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="iznosOslobPdv"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="iznosMarza"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="iznosNePodlOpor"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="naknade"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="iznosUkupno"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="nacinPlac"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="oibOper"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="zastKod"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="nakDost"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="paragonBrRac"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="specNamj"
+                  persistence-modifier="persistent"/>
+            <field
+                  name="artikli"
+                  persistence-modifier="persistent"/>
+        </class>
+    </package>
+</jdo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tns:PoslovniProstorZahtjev xmlns:tns="http://www.apis-it.hr/fin/2012/types/f73"
+	xmlns="http://www.w3.org/2000/09/xmldsig#" Id="signXmlId">
+	<tns:Zaglavlje>
+		<tns:IdPoruke>ca996cc7-fcc3-4c50-961b-40c8b875a5e8</tns:IdPoruke>
+		<tns:DatumVrijeme>08.05.2013T11:58:33</tns:DatumVrijeme>
+	</tns:Zaglavlje>
+	<tns:PoslovniProstor>
+		<tns:Oib>57289294894</tns:Oib>
+		<tns:OznPoslProstora>POSL1</tns:OznPoslProstora>
+		<tns:AdresniPodatak>
+			<tns:OstaliTipoviPP>Internet trgovina</tns:OstaliTipoviPP>
+		</tns:AdresniPodatak>
+		<tns:RadnoVrijeme>8-16</tns:RadnoVrijeme>
+		<tns:DatumPocetkaPrimjene>08.05.2013</tns:DatumPocetkaPrimjene>
+	</tns:PoslovniProstor>
+</tns:PoslovniProstorZahtjev>

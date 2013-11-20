@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><tns:PoslovniProstorZahtjev xmlns:tns="http://www.apis-it.hr/fin/2012/types/f73" xmlns="http://www.w3.org/2000/09/xmldsig#" Id="signXmlId">
+	<tns:Zaglavlje>
+		<tns:IdPoruke>ca996cc7-fcc3-4c50-961b-40c8b875a5e8</tns:IdPoruke>
+		<tns:DatumVrijeme>08.05.2013T11:58:33</tns:DatumVrijeme>
+	</tns:Zaglavlje>
+	<tns:PoslovniProstor>
+		<tns:Oib>57289294894</tns:Oib>
+		<tns:OznPoslProstora>POSL1</tns:OznPoslProstora>
+		<tns:AdresniPodatak>
+			<tns:OstaliTipoviPP>Internet trgovina</tns:OstaliTipoviPP>
+		</tns:AdresniPodatak>
+		<tns:RadnoVrijeme>8-16</tns:RadnoVrijeme>
+		<tns:DatumPocetkaPrimjene>08.05.2013</tns:DatumPocetkaPrimjene>
+	</tns:PoslovniProstor>
+<Signature><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI="#signXmlId"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>Be7AZNCeYomcP5X62ksYfVLy7DQ=</DigestValue></Reference></SignedInfo><SignatureValue>tW4eyr7/cJL4pQWuflXOskKEeKh5Pm3/bZ8yBGGEQWPfjBt2JSyOpBpt1x3jlkLT++bf4k5f55BD
+A4c0e1BYfCs0XwtNBYX26nbLfwDXz0MGfI4D/AeTbxiDXRqwuB+oBkvg+SUpPRRNwIJrNhiizKJ4
+uag3HMea+OtqUJxcqhlN/K92Y7hDDRpzVPBBku7TN2OESlwiS01NsSaav3Xv3pW/wuyQLciQSaEJ
+BeqHvDW93WikpvfkL8vJiteRePhLNjL+uYerKuSCfFm4iqj+AC1/c7rVmyzCZ5J7WN5UotkvYGiW
+/XZZbeiiDSOsPl+QWCBjXUpT9sP6DnL9208eMw==</SignatureValue><KeyInfo><X509Data><X509Certificate>MIIE7TCCA9WgAwIBAgIEPstCRzANBgkqhkiG9w0BAQUFADArMQswCQYDVQQGEwJIUjENMAsGA1UE
+ChMERklOQTENMAsGA1UECxMEREVNTzAeFw0xMzA0MTUxNjM0MDFaFw0xNTA0MTUxNzA0MDFaMGEx
+CzAJBgNVBAYTAkhSMScwJQYDVQQKEx5LUlVOT1NMQVYgSFJOSkFLIEhSNTcyODkyOTQ4OTQxFjAU
+BgNVBAcTDVZFTElLQSBHT1JJQ0ExETAPBgNVBAMTCEZJU0tBTCAxMIIBIjANBgkqhkiG9w0BAQEF
+AAOCAQ8AMIIBCgKCAQEAyfgbvm1TgWkgWv3zTer1xJJPb1gAaoEb5egIY5VwJVcvq+LBJv9Wwzj6
+jCSU3J67b58bICDV+cEdP8ScpWfCeYQvpOTbnQp8WwlSXMGTdngYWTjvw/OUze4cS+F6Q2seILJe
+BuDTTIY5SiWFh7kfteDvNiYxZqb6VzpDOXpbf/+rYtHKg0JaDUgqs7RBW9ajpvcC0MVKl/v6fV06
+4MnNJAh3JCBiCM/nbEEwjMtBuqSwtkHe+7UpkPm9JTMBSjKKNOwtzDziWivHcyP/N/0j15OjzAzY
+1z1myZia2HXwdaItyS1HpewRv4BzM4qqSEyPOo/8OstQDE+VoZr/aplyewIDAQABo4IB4TCCAd0w
+CwYDVR0PBAQDAgWgMEIGA1UdIAQ7MDkwNwYJK3yIUAUfBQMBMCowKAYIKwYBBQUHAgEWHGh0dHA6
+Ly9kZW1vLXBraS5maW5hLmhyL2Nwcy8wJQYDVR0RBB4wHIEaa3J1bm9zbGF2Lmhybmpha0BnbWFp
+bC5jb20wgc8GA1UdHwSBxzCBxDBDoEGgP6Q9MDsxCzAJBgNVBAYTAkhSMQ0wCwYDVQQKEwRGSU5B
+MQ0wCwYDVQQLEwRERU1PMQ4wDAYDVQQDEwVDUkwxMTB9oHugeYZPbGRhcDovL2RlbW8tbGRhcC5m
+aW5hLmhyL291PURFTU8sbz1GSU5BLGM9SFI/Y2VydGlmaWNhdGVSZXZvY2F0aW9uTGlzdCUzQmJp
+bmFyeYYmaHR0cDovL2RlbW8tcGtpLmZpbmEuaHIvY3JsL2RlbW9jYS5jcmwwKwYDVR0QBCQwIoAP
+MjAxMzA0MTUxNjM0MDFagQ8yMDE1MDQxNTE3MDQwMVowHwYDVR0jBBgwFoAUemAjjkidMmuk5S3d
+uFm0lPxCYp4wHQYDVR0OBBYEFKjR9ndhPlyEmArzHelgnKFoEMCOMAkGA1UdEwQCMAAwGQYJKoZI
+hvZ9B0EABAwwChsEVjguMQMCA6gwDQYJKoZIhvcNAQEFBQADggEBAHV9uBKV/vP1TqfgOK71Usta
+2SfiyqatHQagCu4ZN1u4bd2ydlI9RdSnPd4CMxwURLsEMmBNfEn2LDyyKtUWZPaf41TCVri0r0WT
+YhgzXHhTSp9P1H1bpKeJv9I0hsQ4op2cE1qAb+k6ZiLPfWVRvptVeDfh6/HwwZIqoV2U1dY1K4yj
+i65zw8TL6FFNjzFyamwINzXs2Fa+4Iu3d9CuLvV83bSKDKvyvKXn3QKSmqGeNJDDJcWZehEVieXF
+LG2VXgJLRcwfoq7XAYA+f8vTc2VM7rFsHXUDhpu/cTTvXvkwgrT74QaN/BLtyouOTeTK51ovhnGg
+QEUxGdTaxy6zbjI=</X509Certificate><X509IssuerSerial><X509IssuerName>OU=DEMO,O=FINA,C=HR</X509IssuerName><X509SerialNumber>1053508167</X509SerialNumber></X509IssuerSerial></X509Data></KeyInfo></Signature></tns:PoslovniProstorZahtjev>

@@ -1,0 +1,2 @@
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.apis-it.hr/fin/2012/types/f73",xmlns = {@javax.xml.bind.annotation.XmlNs(prefix = "tns", namespaceURI ="http://www.apis-it.hr/fin/2012/types/f73"),@javax.xml.bind.annotation.XmlNs(prefix = "", namespaceURI ="http://www.w3.org/2000/09/xmldsig#")}, elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package hr.apis_it.fin._2012.types.f73;
