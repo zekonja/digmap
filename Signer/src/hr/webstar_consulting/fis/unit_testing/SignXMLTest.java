@@ -18,7 +18,6 @@ import hr.webstar_consulting.fis.utils.FiscalHashCode;
 import hr.webstar_consulting.fis.utils.KeyManager;
 import hr.webstar_consulting.fis.utils.LoadTestData;
 import hr.webstar_consulting.fis.utils.MD5Hex;
-import hr.webstar_consulting.fis.utils.SignXML;
 
 public class SignXMLTest {
 	private static final Logger log = Logger.getLogger(SignXMLTest.class.getName());	
