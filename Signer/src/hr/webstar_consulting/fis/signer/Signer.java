@@ -1,5 +1,15 @@
 package hr.webstar_consulting.fis.signer;
 
+
+import hr.apis_it.fin._2012.services.fiskalizacijaservice.FiskalizacijaPortType;
+import hr.apis_it.fin._2012.services.fiskalizacijaservice.FiskalizacijaService;
+import hr.apis_it.fin._2012.types.f73.PoslovniProstorOdgovor;
+import hr.apis_it.fin._2012.types.f73.PoslovniProstorZahtjev;
+import hr.apis_it.fin._2012.types.f73.RacunOdgovor;
+import hr.apis_it.fin._2012.types.f73.RacunZahtjev;
+import hr.webstar_consulting.fis.utils.KeyManager;
+import hr.webstar_consulting.fis.utils.LoadTestData;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -10,9 +20,12 @@ import javax.xml.crypto.dsig.keyinfo.*;
 import javax.xml.crypto.dsig.spec.*;
 
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
+import java.io.Reader;
 import java.io.Writer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,13 +40,18 @@ import java.util.Iterator;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.InputSource;
 
 import java.util.logging.Logger;
@@ -46,44 +64,122 @@ public class Signer {
 	 */
 
 
-
 	//
 	private static final Logger log = Logger.getLogger(Signer.class.getName());
 	
 	
 	/**
 	 * Command line interface for signing xml file with given .pfx key
-	 * @param args[0] source xml file name
-	 * @param args[1] destination for signed xml file name
-	 * @param args[2] keystore file name
-	 * @param args[3] keystore and key password
+	 * @param args[0] type {bill|space}
+	 * @param args[1] source xml file name
+	 * @param args[2] destination for signed xml file name or null for stdout
+	 * @param args[3] keystore file name
+	 * @param args[4] keystore and key password
 	 * @throws Exception
 	 * 
-	 * "./misc/UnsignedBill.xml"   "./misc/SignedBill.xml"  "./key_folder/fiskaltest0.pfx" "fiskaltest"
-	 * "./misc/UnsignedSpace.xml"  "./misc/SignedSpace.xml" "./key_folder/fiskaltest0.pfx" "fiskaltest"
+	 * "bill" "./misc/UnsignedBill.xml"   "./misc/SignedBill.xml"  "./key_folder/fiskaltest0.pfx" "fiskaltest"
+	 * "space" "./misc/UnsignedSpace.xml"  "./misc/SignedSpace.xml" "./key_folder/fiskaltest0.pfx" "fiskaltest"
 	 */
 	
 	public static void main(String[] args) throws Exception {
-		KeyStore.PrivateKeyEntry pke = KeyManager.getPrivateKeyEntry(args[2],args[3]);
-		//read file
-		Document doc = readDocumentFromXMLFile(args[0]);
-		//sign content
-		Document signedDoc = getSignedXML(doc, pke);		
-		//write file
-		writeDocumentToXMLFile(signedDoc,args[1]);
+		
+		String messageType = args[0];
+		String inputFileName = args[1];
+		String outputFileName = args[2];
+		String keystoreFileName = args[3];
+		String keystorePassword = args[4];		
+
+		
+		KeyStore.PrivateKeyEntry pke = KeyManager.getPrivateKeyEntry(keystoreFileName,keystorePassword);
+		//read file		
+		Document doc = readDocumentFromXMLFile(inputFileName);	
+		
+		
+		
+		switch(messageType) {
+		case "bill": {			
+			//Create new bill request	
+			RacunZahtjev rz = new RacunZahtjev();
+			rz= (RacunZahtjev) Signer.convertDocumentToObject(doc, rz.getClass());
+			rz=(RacunZahtjev) getSignedObject(rz, pke);
+			//Send request and receive answer
+			if (outputFileName.compareTo("null")==0) {
+				System.out.println("-----------------------");
+				System.out.println("RacunZahtijev signed: ");		
+				Signer.printOutObject(rz);
+				System.out.println("-----------------------");				
+			}
+			else {
+				writeDocumentToXMLFile(Signer.convertObjectToDocument(rz), outputFileName);
+			}
+		} break;
+		case "space": {			
+			//Create new space request
+			PoslovniProstorZahtjev ppz= new PoslovniProstorZahtjev();
+			ppz= (PoslovniProstorZahtjev) Signer.convertDocumentToObject(doc, ppz.getClass());
+			ppz = (PoslovniProstorZahtjev) getSignedObject(ppz, pke);
+			if (outputFileName.compareTo("null")==0) {
+				System.out.println("-----------------------");
+				System.out.println("PoslovniProstorZahtijev signed: ");		
+				Signer.printOutObject(ppz);
+				System.out.println("-----------------------");				
+			}
+			else {
+				Signer.writeDocumentToXMLFile(Signer.convertObjectToDocument(ppz), outputFileName);
+			}			
+		} break;
+		default : { 
+			String errMsg="Message type param can be one of the following: {bill|space}";
+			System.err.println(errMsg);
+			throw new Exception(errMsg);
+		}
+		}
+		
+		
+		
+	
+		
+		//Create new bill request
+
+
+//		System.out.println("-----------------------");
+//		System.out.println("RacunZahtjev signed:");
+//		Signer.printOutObject(rz);
+//		System.out.println("-----------------------");
+//
+//		//Initiate service
+//		FiskalizacijaService fs = new FiskalizacijaService();
+//		FiskalizacijaPortType fpt =  fs.getFiskalizacijaPortType();
+//		//Send request and receive answer		
+//		RacunOdgovor ro= fpt.racuni(rz);
+//		System.out.println("-----------------------");		
+//		System.out.println("RacunOdgovor:");		
+//		Signer.printOutObject(ro);
+//		System.out.println("-----------------------");
+//		System.out.println("JIR:");
+//		System.out.println(ro.getJir());	
+//		System.out.println("-----------------------");			
+		
+		
 		
 	}
+	
+
 	
 	public static Document readDocumentFromXMLFile (String inputFileName) throws Exception
 	{
 		File inputXmlFile = new File(inputFileName);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		dbFactory.setNamespaceAware(true);
+		dbFactory.setNamespaceAware(true);		
+		dbFactory.setIgnoringElementContentWhitespace(true);
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(inputXmlFile);	
-		doc.getDocumentElement().normalize();	
-		return doc;		
+		doc.getDocumentElement().normalize();
+		return doc;
 	}
+	
+	
+	
 	
 	public static void writeDocumentToXMLFile (Document doc, String outputFileName) throws Exception
 	{
@@ -124,7 +220,7 @@ public class Signer {
 		//Convert object to document
 		Document sourceDoc = convertObjectToDocument(object);
 		//sign document
-		Document signedDocument = Signer.getSignedXML(sourceDoc,pke);
+		Document signedDocument = Signer.getSignedDocument(sourceDoc,pke);
 		//return signed object
 		return convertDocumentToObject(signedDocument,object.getClass());
 	}
@@ -147,11 +243,9 @@ public class Signer {
 	}
 
 	public static Object convertDocumentToObject(Document document,Class className) throws Exception {
-		JAXBContext jc = null;
-		jc = JAXBContext.newInstance(className);
-		//Unmarshall signed document into object
+		JAXBContext jc = JAXBContext.newInstance(className);
 		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		return unmarshaller.unmarshal(document);	
+		return unmarshaller.unmarshal(document.getDocumentElement());	
 	}	
 
 
@@ -207,33 +301,58 @@ public class Signer {
 	}
 	
 	
-	public static String getSignedXML(String xmlString,KeyStore.PrivateKeyEntry pke) throws Exception {
-		DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		InputSource is = new InputSource();
-		is.setCharacterStream(new StringReader(xmlString));
-		Document doc = db.parse(is);
-		Document signedDoc = getSignedXML(doc,pke);		
+	
+	public static String convertDocumentToXMLString (Document doc) throws Exception {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance(); 
 		Transformer transformer = transformerFactory.newTransformer();
-		DOMSource source = new DOMSource(signedDoc);
+		DOMSource source = new DOMSource(doc);
 		StreamResult result =  new StreamResult(new StringWriter());
 		transformer.transform(source, result);
 		String signedXml = result.getWriter().toString();
 		return signedXml;
 	}
+	
+	
+	public static Document convertXMLStringToDocument (String xmlString) throws Exception {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		factory.setIgnoringComments(true);
+		factory.setIgnoringElementContentWhitespace(true);		
+		DocumentBuilder docBuilder;
+		docBuilder = factory.newDocumentBuilder();
+		Document doc = docBuilder.parse(new InputSource(new StringReader(xmlString)));
+		return doc;	
+	}	
+	
+	
+	public static String getSignedXMLString(String xmlString,KeyStore.PrivateKeyEntry pke) throws Exception {
+		return convertDocumentToXMLString(getSignedDocument(xmlString,pke));
+		
+	}
+	
+	public static String getSignedXMLString(Document doc,KeyStore.PrivateKeyEntry pke) throws Exception {
+		return convertDocumentToXMLString(getSignedDocument(doc,pke));
+		
+	}
+	
+	
+	
+	
+	public static Document getSignedDocument(String xmlString,KeyStore.PrivateKeyEntry pke) throws Exception {
+		return getSignedDocument(convertXMLStringToDocument(xmlString),pke);	
+	}
+	
+	
 
-	public static Document getSignedXML(Document doc,KeyStore.PrivateKeyEntry pke) throws Exception {
+	public static Document getSignedDocument(Document doc,KeyStore.PrivateKeyEntry pke) throws Exception {
 
 		//get Private Key, Certificate and Public Key
 		PrivateKey privateKey = pke.getPrivateKey();
 		X509Certificate keyX509Certificate = (X509Certificate) pke.getCertificate();
 		PublicKey publicKey = keyX509Certificate.getPublicKey();
 		KeyPair kp = new KeyPair(publicKey, privateKey);
-
-
-
-		org.w3c.dom.Element xmlRacunZahtjev = doc.getDocumentElement();
-		String id = xmlRacunZahtjev.getAttribute("Id");	
+		org.w3c.dom.Element xmlRequest = doc.getDocumentElement();
+		String id = xmlRequest.getAttribute("Id");	
 		if (id!="") id="#"+id;
 		// Create a DOM XMLSignatureFactory that will be used to generate the
 		// enveloped signature
@@ -241,8 +360,8 @@ public class Signer {
 		// Create a Reference to the enveloped document (in this case we are
 		// signing the part of document marked by Id field
 		List <Transform> list = new ArrayList<Transform>();
-		list.add(fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null));
-		list.add(fac.newTransform("http://www.w3.org/2001/10/xml-exc-c14n#", (TransformParameterSpec) null));
+		list.add(fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null));		
+		list.add(fac.newTransform(CanonicalizationMethod.EXCLUSIVE, (TransformParameterSpec) null));
 		Reference ref = fac.newReference(id, fac.newDigestMethod(DigestMethod.SHA1, null),list,null, null);
 		//Setup Canonicalization and Signature Method
 		CanonicalizationMethod cm = fac.newCanonicalizationMethod(CanonicalizationMethod.EXCLUSIVE,(C14NMethodParameterSpec) null);
@@ -253,14 +372,9 @@ public class Signer {
 		KeyInfoFactory keyInfoFactory = fac.getKeyInfoFactory();		
 		// Create a KeyValue containing the RSA PublicKey that was generated
 		KeyValue kv = keyInfoFactory.newKeyValue(kp.getPublic());
-		//Collect some more data about key
 		String issuerName = keyX509Certificate.getIssuerX500Principal().getName();
 		String subjectName = keyX509Certificate.getSubjectDN().getName();
-		String oib = subjectName.substring(subjectName.indexOf(" HR")+3,subjectName.indexOf(" HR")+3+11);		
-		String name = subjectName.substring(subjectName.indexOf("O=")+3,subjectName.indexOf(" HR"));
-//		System.out.println("SubjectDN "+subjectName);
-//		System.out.println("SubjectOIB "+oib);
-//		System.out.println("SubjectName "+name);
+		//Collect some more data about key		
 		BigInteger serialNumber = keyX509Certificate.getSerialNumber();
 		List x509 = new ArrayList();        
 		x509.add(keyX509Certificate);

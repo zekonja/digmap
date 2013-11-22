@@ -1,4 +1,4 @@
-package hr.webstar_consulting.fis.examples;
+package hr.webstar_consulting.fis.utils;
 
 import java.io.*;
 import java.security.*;

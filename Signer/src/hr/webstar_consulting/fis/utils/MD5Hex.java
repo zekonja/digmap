@@ -1,4 +1,4 @@
-package hr.webstar_consulting.fis.signer;
+package hr.webstar_consulting.fis.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

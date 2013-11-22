@@ -40,7 +40,7 @@ public class Messanger {
 		String messageType = args[0];
 		String inputFileName = args[1];
 		String outputFileName = args[2];
-		System.out.println(args[0]+" "+args[1]+" "+args[2]);
+		//System.out.println(args[0]+" "+args[1]+" "+args[2]);
 		
 
 
@@ -75,9 +75,7 @@ public class Messanger {
 				Signer.writeDocumentToXMLFile(Signer.convertObjectToDocument(ro), outputFileName);
 
 			}
-
-
-
+			
 		} break;
 		case "space": {			
 			//read file

@@ -28,8 +28,6 @@ import hr.apis_it.fin._2012.types.f73.PoslovniProstorZahtjev;
 import hr.apis_it.fin._2012.types.f73.RacunType;
 import hr.apis_it.fin._2012.types.f73.RacunZahtjev;
 import hr.apis_it.fin._2012.types.f73.ZaglavljeType;
-import hr.webstar_consulting.fis.signer.FiscalHashCode;
-import hr.webstar_consulting.fis.signer.KeyManager;
 import hr.webstar_consulting.fis.signer.Signer;
 
 public class LoadTestData {
@@ -201,21 +199,10 @@ public class LoadTestData {
 		try {
 
 			// load test Data for RacunZahtjev		
-			String xmlString = "<tns:RacunZahtjev xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" Id=\"signXmlId\" xmlns:tns=\"http://www.apis-it.hr/fin/2012/types/f73\"><tns:Zaglavlje><tns:IdPoruke>60c06a12-ff4c-4210-bf4f-d730866b1e68</tns:IdPoruke><tns:DatumVrijeme>22.10.2012T18:04:26</tns:DatumVrijeme></tns:Zaglavlje><tns:Racun><tns:Oib>57289294894</tns:Oib><tns:USustPdv>true</tns:USustPdv><tns:DatVrijeme>22.10.2012T18:04:26</tns:DatVrijeme><tns:OznSlijed>P</tns:OznSlijed><tns:BrRac><tns:BrOznRac>1</tns:BrOznRac><tns:OznPosPr>1</tns:OznPosPr><tns:OznNapUr>1</tns:OznNapUr></tns:BrRac><tns:Pdv><tns:Porez><tns:Stopa>25.00</tns:Stopa><tns:Osnovica>10.00</tns:Osnovica><tns:Iznos>2.50</tns:Iznos></tns:Porez></tns:Pdv><tns:IznosUkupno>12.50</tns:IznosUkupno><tns:NacinPlac>G</tns:NacinPlac><tns:OibOper>57289294894</tns:OibOper><tns:ZastKod>d7ec0ee48857553a9b4ada78cb2c3a7a</tns:ZastKod><tns:NakDost>false</tns:NakDost></tns:Racun></tns:RacunZahtjev>";
-			//System.out.println (xmlString);
-			JAXBContext jc = JAXBContext.newInstance(RacunZahtjev.class);
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			factory.setNamespaceAware(true);
-			DocumentBuilder docBuilder;
-			docBuilder = factory.newDocumentBuilder();
-			InputSource is = new InputSource();
-			is.setCharacterStream(new StringReader(xmlString));
-			Document xmlRacunZahtjevDoc = docBuilder.parse(is);
-			org.w3c.dom.Element xmlRacunZahtjev = xmlRacunZahtjevDoc.getDocumentElement();
-			String id = xmlRacunZahtjev.getAttribute("Id");
-			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			RacunZahtjev rzs;
-			rzs = (RacunZahtjev)unmarshaller.unmarshal(xmlRacunZahtjev);
+			String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><tns:RacunZahtjev xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" Id=\"signXmlId\" xmlns:tns=\"http://www.apis-it.hr/fin/2012/types/f73\"><tns:Zaglavlje><tns:IdPoruke>60c06a12-ff4c-4210-bf4f-d730866b1e68</tns:IdPoruke><tns:DatumVrijeme>22.10.2012T18:04:26</tns:DatumVrijeme></tns:Zaglavlje><tns:Racun><tns:Oib>57289294894</tns:Oib><tns:USustPdv>true</tns:USustPdv><tns:DatVrijeme>22.10.2012T18:04:26</tns:DatVrijeme><tns:OznSlijed>P</tns:OznSlijed><tns:BrRac><tns:BrOznRac>1</tns:BrOznRac><tns:OznPosPr>1</tns:OznPosPr><tns:OznNapUr>1</tns:OznNapUr></tns:BrRac><tns:Pdv><tns:Porez><tns:Stopa>25.00</tns:Stopa><tns:Osnovica>10.00</tns:Osnovica><tns:Iznos>2.50</tns:Iznos></tns:Porez></tns:Pdv><tns:IznosUkupno>12.50</tns:IznosUkupno><tns:NacinPlac>G</tns:NacinPlac><tns:OibOper>57289294894</tns:OibOper><tns:ZastKod>d7ec0ee48857553a9b4ada78cb2c3a7a</tns:ZastKod><tns:NakDost>false</tns:NakDost></tns:Racun></tns:RacunZahtjev>";
+			System.out.println (xmlString);			
+			Document xmlRacunZahtjevDoc = Signer.convertXMLStringToDocument(xmlString);			
+			RacunZahtjev rzs = (RacunZahtjev) Signer.convertDocumentToObject(xmlRacunZahtjevDoc,RacunZahtjev.class);
 			return rzs;
 
 		} catch (Exception e) {

@@ -1,7 +1,8 @@
-package hr.webstar_consulting.fis.signer;
+package hr.webstar_consulting.fis.utils;
 
 import hr.apis_it.fin._2012.types.f73.BrojRacunaType;
 import hr.apis_it.fin._2012.types.f73.RacunType;
+
 import java.security.KeyStore;
 import java.security.Signature;
 import java.util.logging.Logger;
