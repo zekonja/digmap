@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="digMapEchoPdf" class="hr.yottabyte.digmap.wps.DigMapEchoPdf">
+		<constructor-arg index="0" ref="mapPrinter" />
+		<constructor-arg index="1" ref="resourceLoader" />
+	</bean>
+	<bean id="digMapexcerpt" class="hr.yottabyte.digmap.wps.DigitalMapExcerpt">
+		<constructor-arg index="0" ref="mapPrinter" />
+		<constructor-arg index="1" ref="resourceLoader" />
+		<constructor-arg index="2" ref="servletContext" />				
+	</bean>	
+	<bean id="digMapEchoPrintConfig" class="hr.yottabyte.digmap.wps.DigMapInfo">
+		<constructor-arg index="0" ref="mapPrinter" />
+		<constructor-arg index="1" ref="resourceLoader" />
+		<constructor-arg index="2" ref="servletContext" />		
+	</bean>
+	<bean id="digMapEchoPrintSpec" class="hr.yottabyte.digmap.wps.DigMapEchoPrintSpec">
+		<constructor-arg index="0" ref="mapPrinter" />
+		<constructor-arg index="1" ref="resourceLoader" />
+		<constructor-arg index="2" ref="servletContext" />		
+	</bean>
+	<bean id="digMapInfoPdf" class="hr.yottabyte.digmap.wps.DigMapInfoPdf">
+		<constructor-arg index="0" ref="mapPrinter" />
+		<constructor-arg index="1" ref="resourceLoader" />
+		<constructor-arg index="2" ref="servletContext" />		
+	</bean>	
+	<bean id="digMapCalcCost" class="hr.yottabyte.digmap.wps.DigMapCalcCost">
+		<constructor-arg index="0" ref="mapPrinter" />
+		<constructor-arg index="1" ref="resourceLoader" />
+		<constructor-arg index="2" ref="servletContext" />		
+	</bean>		
+</beans>

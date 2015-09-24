@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:gml="http://www.opengis.net/gml" xmlns:location="file:/C:/Users/khrnjak/workspace/digmap/location.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="file:/C:/Users/khrnjak/workspace/digmap/location.xsd">
+  <xsd:import namespace="http://www.opengis.net/gml" schemaLocation="file:/C:/Users/khrnjak/workspace/digmap//gml/2.1.2/feature.xsd"/>
+  <xsd:complexType name="location">
+    <xsd:complexContent>
+      <xsd:extension base="gml:AbstractFeatureType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="geom" nillable="true" type="gml:PointPropertyType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="name" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="location" substitutionGroup="gml:_Feature" type="location:location"/>
+</xsd:schema>
