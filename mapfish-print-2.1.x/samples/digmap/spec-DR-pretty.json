@@ -1,0 +1,68 @@
+{
+  "units": "m",
+  "srs": "EPSG:31275",
+  "layout": "A4",
+  "dpi": 50,
+  "outputFormat": "pdf",
+  "mapTitle": "",
+  "mapComment": "Komentar",
+  "mapFooter": "",
+  "mapAttribution": "",
+  "layers": [
+    {
+      "baseURL": "http:\/\/geoportal.dgu.hr\/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "DOF"
+      ],
+      "format": "image\/jpeg",
+      "styles": [
+        ""
+      ]
+    },
+    {
+      "baseURL": "http:\/\/gis.aquaeductus.hr\/geoserver\/wms\/",
+      "opacity": 0.7,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "DR_db:UPU_koristenje"
+      ],
+      "format": "image\/png",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true
+      }
+    },
+    {
+      "baseURL": "http:\/\/gis.aquaeductus.hr\/geoserver\/wms\/",
+      "opacity": 0.7,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "DR_db:Promet"
+      ],
+      "format": "image\/png",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true
+      }
+    }	
+  ],
+  "pages": [
+    {
+      "center": [
+		5539034.4455056, 
+		5033400.5347458
+      ],
+      "scale": 500,
+      "rotation": 30
+    }
+  ]
+}

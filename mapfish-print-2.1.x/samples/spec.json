@@ -1,0 +1,41 @@
+          {
+             layout: 'A4 portrait',
+             title: 'A simple example',
+             srs: 'EPSG:4326',
+             units: 'dd',
+             outputFilename: 'mapfish-print',
+             outputFormat: 'pdf',
+             layers: [
+                 {
+                     type: 'WMS',
+                     format: 'image/png',
+                     layers: ['topp:states'],
+                     baseURL: 'http://digmap-lab.fiware.yottabyte.hr/geoserver/wms'
+                 }
+             ],
+             pages: [
+                 {
+                     center: [-73.982, 40.753],
+                     scale: 4000000,
+                     dpi: 56,
+                     mapTitle: "First map",
+                     comment: "The \"routes\" layer is not shown (the scale is too small)",
+                     data: [
+                         {id:1, name: 'blah', icon: 'icon_pan'},
+                         {id:2, name: 'blip', icon: 'icon_zoomin'}
+                     ]
+                 },
+                 {
+                     center: [-73.982, 40.753],
+                     scale: 500000,
+                     dpi: 56,
+                     mapTitle: "Second map",
+                     comment: "This is a zoomed in version of the first map. Since the scale is more appropriate, we show the \"routes\" layer.",
+                     data: [
+                         {id:1, name: 'blah', icon: 'icon_pan'},
+                         {id:2, name: 'blip', icon: 'icon_zoomin'}
+                     ]
+                 }
+             ]
+          }
+      

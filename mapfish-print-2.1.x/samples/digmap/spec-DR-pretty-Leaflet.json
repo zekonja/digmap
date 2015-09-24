@@ -1,0 +1,38 @@
+{
+  "units": "m",
+  "srs": "EPSG:3857",
+  "layout": "A4",
+  "dpi": 150,
+  "outputFormat": "pdf",
+  "outputFilename": "leaflet-map",
+  "layers": [
+    {
+      "baseURL": "http:\/\/digmap-dme.fiware.yottabyte.hr\/geoserver\/wms",
+      "opacity": 1,
+      "type": "WMS",
+      "layers": [
+        "topp:states"
+      ],
+      "format": "image\/png",
+      "styles": [
+        
+      ],
+      "singleTile": true,
+      "customParams": {
+        "transparent": true
+      }
+    }
+  ],
+  "pages": [
+    {
+      "center": [
+        -12139147.794517,
+        4438638.4569292
+      ],
+      "scale": 1500,
+      "rotation": 0
+    }
+  ],
+  "mapTitle": "Digital Map Excert Demo",
+  "mapComment": "Testing Digital Map Excert"
+}

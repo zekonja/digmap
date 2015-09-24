@@ -1,0 +1,148 @@
+dpis: [50, 75, 150, 200]
+
+scales:
+    - 500
+    - 1500    
+
+hosts:
+  - !localMatch
+    dummy: true
+  - !ipMatch
+    ip: 
+  - !dnsMatch
+    host: demo.opengeo.org
+    port: 80
+  - !dnsMatch
+    host: geoportal.dgu.hr
+    port: 80
+  - !dnsMatch
+    host: dr.aquaeductus.hr
+  - !dnsMatch
+    host: gis.aquaeductus.hr
+  - !dnsMatch
+    host: digmap-dme.fiware.yottabyte.hr    
+       
+
+layouts:
+
+    A4:
+        metaData: &commonMetaData
+            title: "${mapTitle}"
+            author: "www.yottabyte.hr"
+            subject: "DigMap print"
+            keywords: "map,print,signature,export,billing"
+            creator: "yottabyte"
+        mainPage:
+            pageSize: A4
+            rotation: true
+            items:
+                - !text
+                    text: "Digitalni izvod iz geoportala Duge Rese"
+                    fontSize: 15
+                    spacingAfter: 15
+                    align: center
+                - !text
+                    text: "${mapTitle}"
+                    fontSize: 30
+                    spacingAfter: 15
+                    align: center
+                - !map
+                    spacingAfter: 10
+                    width: 520
+                    height: 600
+                - !scalebar
+                    type: bar
+                    maxSize: 100
+                    barBgColor: white
+                    fontSize: 9
+                    align: right
+                    spacingAfter: 5
+                - !text
+                    font: Helvetica
+                    fontSize: 10
+                    align: right
+                    text: '1:${scale}'
+                - !text
+                    text: "${mapComment}"
+                - !text
+                    align: right
+                    text: '${now dd.MM.yyyy}'
+                    spacingAfter: 5
+                - !legends
+                    borders: false
+                    layerFont: Helvetica
+                    layerFontSize: 10
+                    layerSpace: 5
+                    maxIconWidth: 0
+                    maxIconHeight: 0
+                    classFont: Helvetica
+                    classFontSize: 20
+                    classSpace: 5
+                    classIndentation: 20
+
+    Legal:
+        metaData: *commonMetaData
+        mainPage:
+            pageSize: LEGAL
+            rotation: true
+            items:
+                - !text
+                    text: "${mapTitle}"
+                    fontSize: 30
+                    spacingAfter: 30
+                    align: center
+                - !map
+                    spacingAfter: 10
+                    width: 440
+                    height: 650
+                - !scalebar
+                    type: bar
+                    maxSize: 100
+                    barBgColor: white
+                    fontSize: 8
+                    align: right
+                    spacingAfter: 10
+                - !text
+                    text: "${mapComment}"
+                - !text
+                    font: Helvetica
+                    fontSize: 9
+                    align: right
+                    text: '1:${scale}        ${now MM.dd.yyyy}'
+                - !legends
+                    layerFont: Helvetica
+                    classFontSize: 10
+                    classSpace: 5
+                    classIndentation: 20
+
+
+    Letter:
+        metaData: *commonMetaData
+        mainPage:
+            pageSize: LETTER
+            rotation: true
+            items:
+                - !text
+                    text: "${mapTitle}"
+                    fontSize: 30
+                    spacingAfter: 30
+                    align: center
+                - !map
+                    spacingAfter: 10
+                    width: 440
+                    height: 550
+                - !scalebar
+                    type: bar
+                    maxSize: 100
+                    barBgColor: white
+                    fontSize: 8
+                    align: right
+                    spacingAfter: 10
+                - !text
+                    text: "${mapComment}"
+                - !text
+                    font: Helvetica
+                    fontSize: 9
+                    align: right
+                    text: '1:${scale}        ${now MM.dd.yyyy}'
+
